@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class DNAwork {
 
 	// Note : X means STOP
@@ -191,7 +193,6 @@ public class DNAwork {
 		return val;
 	}
 	
-
 			
 	public char CodontoLetter (String Codon){
 		// U - 0 	C - 1	A - 2	G - 3
