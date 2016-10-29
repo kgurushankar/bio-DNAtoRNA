@@ -14,6 +14,145 @@ public class DNAwork {
 		setCodonArr();
 	}
 	
+	public static void main(String[] args) {
+		System.out.println((int)('a'));
+		
+		DNAwork a = new DNAwork();
+		Scanner in = new Scanner(System.in);
+		String DNA = in.nextLine();
+		in.close();
+		String RNA = a.DNAtoRNA(DNA);
+		String Letters = a.RNAtoLetters(RNA);
+		System.out.println(RNA);
+		System.out.println(Letters);
+
+	}
+	
+	public String DNAtoRNA (String DNA){
+		String str = DNA.toUpperCase();
+		boolean n = (((remove(str,"A","C","T","G")).replaceAll("-", "").replaceAll(" ", "")).equals("")) ? true : false;
+		if (n){
+		
+			char[] x = (DNA.toUpperCase()).toCharArray();
+			String out="";
+			for (int i = 0; i<x.length; i++){
+				if 			(x[i]=='A'){
+					out+="U";
+				} else if 	(x[i]=='T'){
+					out+="A";
+				} else if 	(x[i]=='C'){
+					out+="G";
+				} else if 	(x[i]=='G'){
+					out+="C";
+				} else {
+					out+=x[i];
+				}
+			}
+			
+			return out;
+		}
+		else {return "Error";}
+		
+	}
+	
+	public String RNAtoDNA(String RNA){
+		String str = RNA.toUpperCase();
+		boolean n = (((remove(str,"A","C","U","G")).replaceAll("-", "").replaceAll(" ", "")).equals("")) ? true : false;
+		if (n){
+			char[] x = (RNA.toUpperCase()).toCharArray();
+			String out="";
+			for (int i = 0; i<x.length; i++){
+				if 			(x[i]=='U'){
+					out+="A";
+				} else if 	(x[i]=='A'){
+					out+="T";
+				} else if 	(x[i]=='C'){
+					out+="G";
+				} else if 	(x[i]=='G'){
+					out+="C";
+				} else {
+					out+=x[i];
+				}
+			}
+			
+			return out;
+		}
+		else {return "Error";}
+	}
+	
+	public String RNAtoLetters(String RNA){
+		String str = (RNA.toUpperCase()).replaceAll(" ", "");
+		boolean n = (((remove(str,"A","C","U","G")).replaceAll("-", "")).equals("")) ? true : false;
+		if (n){
+			String out="";
+			int rby3 = (int)((str.length()/3.0)+0.66);
+			int i;
+			if (CodontoLetter(str.substring(0, 3)) == 'M'){
+				i = 0;
+			}else if (CodontoLetter(str.substring(1, 4)) == 'M'){
+				i = 1;
+			}else if (CodontoLetter(str.substring(2, 5)) == 'M'){
+				i = 2;
+			}else {i=0;}
+				for (int j = 0; j<rby3; j++){
+				String temp = str.substring((i+j*3), (i+j*3+3));
+				char check = CodontoLetter(temp);
+				out+= ((check=='X') ? "stop" : check);
+				}
+				return out;
+				
+			
+		}
+		else {return "Error";}
+	}
+	
+	public String LetterstoRNA(String letters){
+		char[] str = (letters.toUpperCase()).toCharArray();
+		String out = "";
+		for (int i = 0; i<str.length; i++){
+			out += LettertoCodon(str[i]);
+		}
+		return out;
+	}
+	
+	
+	private String remove(String str, String one, String two, String three, String four){
+		String val = (((str.replaceAll(one, "-")).replaceAll(two, "-")).replaceAll(three, "-")).replaceAll(four, "-");
+		return val;
+	}
+		
+	private char CodontoLetter (String Codon){
+		// U - 0 	C - 1	A - 2	G - 3
+		int[] index = new int[3];
+		for (int i = 0; i<3;i++){
+			if (Codon.charAt(i)=='U'){
+				index[i] = 0;
+			} else if (Codon.charAt(i)=='C'){
+				index[i] = 1;
+			} else if (Codon.charAt(i)=='A'){
+				index[i] = 2;
+			} else if (Codon.charAt(i)=='G'){
+				index[i] = 3;
+			}
+		}
+		return letterTable[index[0]][index[1]][index[2]];
+	}
+
+	private String LettertoCodon(char letter){
+		String str = "";
+		str+=letter;
+		str = str.toUpperCase();
+		String[] set = codonTable.get(str);
+		String out = RndfromArray(set);
+		return out;
+	}
+	
+	private String RndfromArray (String[] arr){
+		int x = (int) (Math.random()*arr.length);
+		String out = arr[x];
+		return out;
+	}
+
 	private void setLetterTable(){
 		letterTable [0][0][0] = 'F'; //UUU
 		letterTable [0][0][1] = 'F'; //UUC
@@ -149,132 +288,4 @@ public class DNAwork {
 		codonTable.put("Y", Y);
 		}
 
-	
-	public static void main(String[] args) {
-		DNAwork a = new DNAwork();
-		Scanner in = new Scanner(System.in);
-		String DNA = in.nextLine();
-		in.close();
-		String RNA = a.DNAtoRNA(DNA);
-		String Letters = a.RNAtoLetters(RNA);
-		System.out.println(RNA);
-		System.out.println(Letters);
-
-	}
-	
-	public String DNAtoRNA (String DNA){
-		String str = DNA.toUpperCase();
-		boolean n = (((remove(str,"A","C","T","G")).replaceAll("-", "").replaceAll(" ", "")).equals("")) ? true : false;
-		if (n){
-		
-			char[] x = (DNA.toUpperCase()).toCharArray();
-			String out="";
-			for (int i = 0; i<x.length; i++){
-				if 			(x[i]=='A'){
-					out+="U";
-				} else if 	(x[i]=='T'){
-					out+="A";
-				} else if 	(x[i]=='C'){
-					out+="G";
-				} else if 	(x[i]=='G'){
-					out+="C";
-				} else {
-					out+=x[i];
-				}
-			}
-			
-			return out;
-		}
-		else {return "Error";}
-		
-	}
-	
-	public String RNAtoDNA(String RNA){
-		String str = RNA.toUpperCase();
-		boolean n = (((remove(str,"A","C","U","G")).replaceAll("-", "").replaceAll(" ", "")).equals("")) ? true : false;
-		if (n){
-			char[] x = (RNA.toUpperCase()).toCharArray();
-			String out="";
-			for (int i = 0; i<x.length; i++){
-				if 			(x[i]=='U'){
-					out+="A";
-				} else if 	(x[i]=='A'){
-					out+="T";
-				} else if 	(x[i]=='C'){
-					out+="G";
-				} else if 	(x[i]=='G'){
-					out+="C";
-				} else {
-					out+=x[i];
-				}
-			}
-			
-			return out;
-		}
-		else {return "Error";}
-	}
-	
-	public String RNAtoLetters(String RNA){
-		String str = (RNA.toUpperCase()).replaceAll(" ", "");
-		boolean n = (((remove(str,"A","C","U","G")).replaceAll("-", "")).equals("")) ? true : false;
-		if (n){
-			String out="";
-			int rby3 = (int)((str.length()/3.0)+0.66);
-			int i;
-			if (CodontoLetter(str.substring(0, 3)) == 'M'){
-				i = 0;
-			}else if (CodontoLetter(str.substring(1, 4)) == 'M'){
-				i = 1;
-			}else if (CodontoLetter(str.substring(2, 5)) == 'M'){
-				i = 2;
-			}else {i=0;}
-				for (int j = 0; j<rby3; j++){
-				String temp = str.substring((i+j*3), (i+j*3+3));
-				char check = CodontoLetter(temp);
-				out+= ((check=='X') ? "stop" : check);
-				}
-				return out;
-				
-			
-		}
-		else {return "Error";}
-	}
-	
-	private String remove(String str, String one, String two, String three, String four){
-		String val = (((str.replaceAll(one, "-")).replaceAll(two, "-")).replaceAll(three, "-")).replaceAll(four, "-");
-		return val;
-	}
-		
-	public char CodontoLetter (String Codon){
-		// U - 0 	C - 1	A - 2	G - 3
-		int[] index = new int[3];
-		for (int i = 0; i<3;i++){
-			if (Codon.charAt(i)=='U'){
-				index[i] = 0;
-			} else if (Codon.charAt(i)=='C'){
-				index[i] = 1;
-			} else if (Codon.charAt(i)=='A'){
-				index[i] = 2;
-			} else if (Codon.charAt(i)=='G'){
-				index[i] = 3;
-			}
-		}
-		return letterTable[index[0]][index[1]][index[2]];
-	}
-
-	public String LettertoCodon(char letter){
-		String str = "";
-		str+=letter;
-		str = str.toUpperCase();
-		String[] set = codonTable.get(str);
-		String out = RndfromArray(set);
-		return out;
-	}
-	
-
-	private String RndfromArray (String[] arr){
-		int x = (int) (Math.random()*arr.length);
-		String out = arr[x];
-		return out;
-	}
 }
