@@ -122,7 +122,7 @@ public class DNAwork {
 	}
 		
 	private char CodontoLetter (String Codon){
-		// U - 0 	C - 1	A - 2	G - 3
+		// U - 0   C - 1  A - 2  G - 3
 		int[] index = new int[3];
 		for (int i = 0; i<3;i++){
 			if (Codon.charAt(i)=='U'){
@@ -174,7 +174,7 @@ public class DNAwork {
 		letterTable [0][3][2] = 'X'; //UGA
 		letterTable [0][3][3] = 'W'; //UGG
 		
-		//***************************
+		//********************************
 		
 		letterTable [1][0][0] = 'L'; //CUU
 		letterTable [1][0][1] = 'L'; //CUC
@@ -196,7 +196,7 @@ public class DNAwork {
 		letterTable [1][3][2] = 'R'; //CGA
 		letterTable [1][3][3] = 'R'; //CGG
 
-		//***************************
+		//********************************
 		
 		letterTable [2][0][0] = 'I'; //AUU
 		letterTable [2][0][1] = 'I'; //AUC
@@ -218,7 +218,7 @@ public class DNAwork {
 		letterTable [2][3][2] = 'R'; //AGA
 		letterTable [2][3][3] = 'R'; //AGG
 
-		//***************************
+		//********************************
 		
 		letterTable [3][0][0] = 'V'; //GUU
 		letterTable [3][0][1] = 'V'; //GUC
