@@ -85,15 +85,21 @@ public class DNAwork {
 		boolean n = (((remove(str,"A","C","U","G")).replaceAll("-", "")).equals("")) ? true : false;
 		if (n){
 			String out="";
-			int rby3 = (int)((str.length()/3.0)+0.66);
+			int rby3;= 
 			int i;
 			if (CodontoLetter(str.substring(0, 3)) == 'M'){
 				i = 0;
+				rby3 = (int)((str.length()/3.0));
 			}else if (CodontoLetter(str.substring(1, 4)) == 'M'){
 				i = 1;
+				rby3 = (int)((str.length()/3.0)-.33);
 			}else if (CodontoLetter(str.substring(2, 5)) == 'M'){
 				i = 2;
-			}else {i=0;}
+				rby3 = (int)((str.length()/3.0)-.66);
+			}else {
+				i=0;
+				rby3 = (int)((str.length()/3.0));
+			}
 				for (int j = 0; j<rby3; j++){
 				String temp = str.substring((i+j*3), (i+j*3+3));
 				char check = CodontoLetter(temp);
