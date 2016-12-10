@@ -85,7 +85,7 @@ public class DNAwork {
 		boolean n = (((remove(str,"A","C","U","G")).replaceAll("-", "")).equals("")) ? true : false;
 		if (n){
 			String out="";
-			int rby3;= 
+			int rby3; 
 			int i;
 			if (CodontoLetter(str.substring(0, 3)) == 'M'){
 				i = 0;

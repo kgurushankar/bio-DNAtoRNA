@@ -15,7 +15,7 @@ public class DNAui extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JButton buttonDNA, buttonRNA, buttonLetters, buttonReset;
-	private JFormattedTextField fieldDNA, fieldRNA, fieldLetters, fieldReset;
+	private JFormattedTextField fieldDNA, fieldRNA, fieldLetters;
 	
 	public DNAui () {
 		
