@@ -7,10 +7,12 @@ public class DNAwork {
 
 	// Note : X means STOP
 	// U - 0 C - 1 A - 2 G - 3
-	private char[][][] letterTable = new char[4][4][4];
-	private Map<String, String[]> codonTable = new HashMap<String, String[]>();
+	private static char[][][] letterTable;
+	private static Map<String, String[]> codonTable;
 
 	public DNAwork() {
+		letterTable = new char[4][4][4];
+		codonTable = new HashMap<String, String[]>();
 		setLetterTable();
 		setCodonArr();
 	}
