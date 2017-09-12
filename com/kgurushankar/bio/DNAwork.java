@@ -1,4 +1,5 @@
 package com.kgurushankar.bio;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -58,14 +59,14 @@ public class DNAwork {
 			DNA = a.RNAtoDNA(RNA);
 			break;
 		}
-
 		}
+		in.close();
 		System.out.println("DNA     -     " + DNA.replaceAll(" ", ""));
 		System.out.println("RNA     -     " + RNA.replaceAll(" ", ""));
 		System.out.print("Amino Acids - ");
-		//For alignment purposes
-		for (int i = 0; i<AA.length(); i++){
-			System.out.print(" "+AA.charAt(i)+ " ");
+		// For alignment purposes
+		for (int i = 0; i < AA.length(); i++) {
+			System.out.print(" " + AA.charAt(i) + " ");
 		}
 	}
 
