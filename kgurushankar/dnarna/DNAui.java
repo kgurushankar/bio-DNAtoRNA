@@ -1,4 +1,4 @@
-package com.kgurushankar.bio;
+package kgurushankar.dnarna;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;

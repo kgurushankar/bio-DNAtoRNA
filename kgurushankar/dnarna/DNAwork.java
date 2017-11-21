@@ -1,4 +1,4 @@
-package com.kgurushankar.bio;
+package kgurushankar.dnarna;
 
 import java.util.HashMap;
 import java.util.Map;
