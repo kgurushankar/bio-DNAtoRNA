@@ -28,7 +28,7 @@ public class DNAui extends JPanel implements ActionListener {
 
 		fieldDNA = new JFormattedTextField("DNA");
 		fieldDNA.setPreferredSize(new Dimension(120, 30));
-		fieldDNA.setToolTipText("DNA");
+		fieldDNA.setToolTipText("DNA (template strand 3' - 5')");
 		fieldDNA.setColumns(40);
 		fieldDNA.setEditable(true);
 
@@ -39,7 +39,7 @@ public class DNAui extends JPanel implements ActionListener {
 
 		fieldRNA = new JFormattedTextField("RNA");
 		fieldRNA.setPreferredSize(new Dimension(120, 30));
-		fieldDNA.setToolTipText("RNA");
+		fieldDNA.setToolTipText("RNA (template strand 5' - 3')");
 		fieldRNA.setColumns(40);
 		fieldRNA.setEditable(true);
 
@@ -50,7 +50,7 @@ public class DNAui extends JPanel implements ActionListener {
 
 		fieldLetters = new JFormattedTextField("Amino Acids in letter format");
 		fieldLetters.setPreferredSize(new Dimension(120, 30));
-		fieldDNA.setToolTipText("Amino Acids in letter format");
+		fieldDNA.setToolTipText("Amino Acids in letter format (N to C terminus)");
 		fieldLetters.setColumns(40);
 		fieldLetters.setEditable(true);
 
