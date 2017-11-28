@@ -19,13 +19,12 @@ public class DNAwork {
 	}
 
 	public static void main(String[] args) {
-		System.out.println((int) ('a'));
 
 		DNAwork a = new DNAwork();
 		System.out.println("Please select the option that corresponds to the text you will be entering");
-		System.out.println("1 - DNA");
-		System.out.println("2 - RNA");
-		System.out.println("3 - Amino Acids in letter format");
+		System.out.println("1 - DNA (template strand 3' - 5')");
+		System.out.println("2 - RNA (template strand 5' - 3')");
+		System.out.println("3 - Amino Acids in letter format (N to C terminus)");
 
 		int option;
 		Scanner in = new Scanner(System.in);
@@ -48,12 +47,14 @@ public class DNAwork {
 			break;
 		}
 		case (2): {
+			System.out.println("Please enter the RNA sequence");
 			RNA = in.nextLine();
 			DNA = a.RNAtoDNA(RNA);
 			AA = a.RNAtoLetters(RNA);
 			break;
 		}
 		case (3): {
+			System.out.println("Please enter the Amino Acid sequence");
 			AA = in.nextLine();
 			RNA = a.LetterstoRNA(AA);
 			DNA = a.RNAtoDNA(RNA);
@@ -61,13 +62,14 @@ public class DNAwork {
 		}
 		}
 		in.close();
-		System.out.println("DNA     -     " + DNA.replaceAll(" ", ""));
-		System.out.println("RNA     -     " + RNA.replaceAll(" ", ""));
-		System.out.print("Amino Acids - ");
+		System.out.println("DNA     -     3'  " + DNA.replaceAll(" ", "") + "   5'");
+		System.out.println("RNA     -     5'  " + RNA.replaceAll(" ", "") + "   3'");
+		System.out.print("Amino Acids - N   ");
 		// For alignment purposes
 		for (int i = 0; i < AA.length(); i++) {
 			System.out.print(" " + AA.charAt(i) + " ");
 		}
+		System.out.println("   C");
 	}
 
 	public String DNAtoRNA(String DNA) {
@@ -295,48 +297,27 @@ public class DNAwork {
 
 	private void setCodonArr() {
 
-		String[] A = { "GCU", "GCC", "GCA", "GCG" };
-		codonTable.put("A", A);
-		String[] C = { "UGU", "UGC" };
-		codonTable.put("C", C);
-		String[] D = { "GAU", "GAC" };
-		codonTable.put("D", D);
-		String[] E = { "GAA", "GAG" };
-		codonTable.put("E", E);
-		String[] F = { "UUU", "UUU" };
-		codonTable.put("F", F);
-		String[] G = { "GGU", "GGC", "GGA", "GGG" };
-		codonTable.put("G", G);
-		String[] H = { "CAU", "CAC" };
-		codonTable.put("H", H);
-		String[] I = { "AUU", "AUC", "AUA" };
-		codonTable.put("I", I);
-		String[] K = { "AAA", "AAG" };
-		codonTable.put("K", K);
-		String[] L = { "UUA", "UUG", "CUU", "CUC", "CUA", "CUG" };
-		codonTable.put("L", L);
-		String[] M = { "AUG" };
-		codonTable.put("M", M);
-		String[] N = { "AAU", "AAC" };
-		codonTable.put("N", N);
-		String[] P = { "CCU", "CCC", "CCA", "CCG" };
-		codonTable.put("P", P);
-		String[] Q = { "CAA", "CAG" };
-		codonTable.put("Q", Q);
-		String[] R = { "CGU", "CGC", "CGA", "CGG", "AGA", "AGG" };
-		codonTable.put("R", R);
-		String[] S = { "UCU", "UCC", "UCA", "UGC", "AGU", "AGC" };
-		codonTable.put("S", S);
-		String[] T = { "ACU", "ACC", "ACA", "ACG" };
-		codonTable.put("T", T);
-		String[] V = { "GUU", "GUC", "GUA", "GUG" };
-		codonTable.put("V", V);
-		String[] W = { "UGG" };
-		codonTable.put("W", W);
-		String[] X = { "UAA", "UAG", "UGA" };
-		codonTable.put("X", X);
-		String[] Y = { "UAU", "UAC" };
-		codonTable.put("Y", Y);
+		codonTable.put("A", new String[] { "GCU", "GCC", "GCA", "GCG" });
+		codonTable.put("C", new String[] { "UGU", "UGC" });
+		codonTable.put("D", new String[] { "GAU", "GAC" });
+		codonTable.put("E", new String[] { "GAA", "GAG" });
+		codonTable.put("F", new String[] { "UUU", "UUU" });
+		codonTable.put("G", new String[] { "GGU", "GGC", "GGA", "GGG" });
+		codonTable.put("H", new String[] { "CAU", "CAC" });
+		codonTable.put("I", new String[] { "AUU", "AUC", "AUA" });
+		codonTable.put("K", new String[] { "AAA", "AAG" });
+		codonTable.put("L", new String[] { "UUA", "UUG", "CUU", "CUC", "CUA", "CUG" });
+		codonTable.put("M", new String[] { "AUG" });
+		codonTable.put("N", new String[] { "AAU", "AAC" });
+		codonTable.put("P", new String[] { "CCU", "CCC", "CCA", "CCG" });
+		codonTable.put("Q", new String[] { "CAA", "CAG" });
+		codonTable.put("R", new String[] { "CGU", "CGC", "CGA", "CGG", "AGA", "AGG" });
+		codonTable.put("S", new String[] { "UCU", "UCC", "UCA", "UGC", "AGU", "AGC" });
+		codonTable.put("T", new String[] { "ACU", "ACC", "ACA", "ACG" });
+		codonTable.put("V", new String[] { "GUU", "GUC", "GUA", "GUG" });
+		codonTable.put("W", new String[] { "UGG" });
+		codonTable.put("X", new String[] { "UAA", "UAG", "UGA" });// Stop
+		codonTable.put("Y", new String[] { "UAU", "UAC" });
 	}
 
 }
