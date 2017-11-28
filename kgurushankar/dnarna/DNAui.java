@@ -1,4 +1,5 @@
 package kgurushankar.dnarna;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -110,6 +111,7 @@ public class DNAui extends JPanel implements ActionListener {
 				fieldDNA.setText(DNA);
 				fieldRNA.setText(RNA);
 				fieldLetters.setText(Letters);
+				System.out.println(getWidth() + "  " + getHeight());
 			}
 			repaint();
 		} catch (Exception ex) {
@@ -119,7 +121,7 @@ public class DNAui extends JPanel implements ActionListener {
 
 	public static void main(String[] args) {
 		JFrame window = new JFrame("DNA to RNA");
-		window.setBounds(300, 300, 600, 200);
+		window.setBounds(300, 300, 650, 200);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		DNAui panel = new DNAui();
@@ -127,7 +129,7 @@ public class DNAui extends JPanel implements ActionListener {
 		Container c = window.getContentPane();
 		c.add(panel);
 
-		window.setResizable(false);
+		// window.setResizable(false);
 		window.setVisible(true);
 	}
 
