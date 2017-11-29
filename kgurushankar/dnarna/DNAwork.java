@@ -8,14 +8,18 @@ public class DNAwork {
 
 	// Note : X means STOP
 	// U - 0 C - 1 A - 2 G - 3
-	private static char[][][] letterTable;
-	private static Map<String, String[]> codonTable;
+	private static char[][][] letterArr;
+
+	private static Map<Character, String[]> codonTable;
+	private static Map<Character, String> shortTable;
 
 	public DNAwork() {
-		letterTable = new char[4][4][4];
-		codonTable = new HashMap<String, String[]>();
-		setLetterTable();
-		setCodonArr();
+		letterArr = new char[4][4][4];
+		codonTable = new HashMap<Character, String[]>();
+		shortTable = new HashMap<Character, String>();
+		setLetterArr();
+		setCodonTable();
+		setShortTable();
 	}
 
 	public static void main(String[] args) {
@@ -67,7 +71,7 @@ public class DNAwork {
 		System.out.print("Amino Acids - N   ");
 		// For alignment purposes
 		for (int i = 0; i < AA.length(); i++) {
-			System.out.print(" " + AA.charAt(i) + " ");
+			System.out.print(" " + shortTable.get(AA.charAt(i)) + " ");
 		}
 		System.out.println("   C");
 	}
@@ -188,14 +192,11 @@ public class DNAwork {
 				index[i] = 3;
 			}
 		}
-		return letterTable[index[0]][index[1]][index[2]];
+		return letterArr[index[0]][index[1]][index[2]];
 	}
 
 	private String LettertoCodon(char letter) {
-		String str = "";
-		str += letter;
-		str = str.toUpperCase();
-		String[] set = codonTable.get(str);
+		String[] set = codonTable.get(Character.toUpperCase(letter));
 		String out = RndfromArray(set);
 		return out;
 	}
@@ -206,118 +207,142 @@ public class DNAwork {
 		return out;
 	}
 
-	private void setLetterTable() {
-		letterTable[0][0][0] = 'F'; // UUU
-		letterTable[0][0][1] = 'F'; // UUC
-		letterTable[0][0][2] = 'L'; // UUA
-		letterTable[0][0][3] = 'L'; // UUG
+	private void setLetterArr() {
+		letterArr[0][0][0] = 'F'; // UUU
+		letterArr[0][0][1] = 'F'; // UUC
+		letterArr[0][0][2] = 'L'; // UUA
+		letterArr[0][0][3] = 'L'; // UUG
 
-		letterTable[0][1][0] = 'S'; // UCU
-		letterTable[0][1][1] = 'S'; // UCC
-		letterTable[0][1][2] = 'S'; // UCA
-		letterTable[0][1][3] = 'S'; // UCG
+		letterArr[0][1][0] = 'S'; // UCU
+		letterArr[0][1][1] = 'S'; // UCC
+		letterArr[0][1][2] = 'S'; // UCA
+		letterArr[0][1][3] = 'S'; // UCG
 
-		letterTable[0][2][0] = 'Y'; // UAU
-		letterTable[0][2][1] = 'Y'; // UAC
-		letterTable[0][2][2] = 'X'; // UAA
-		letterTable[0][2][3] = 'X'; // UAG
+		letterArr[0][2][0] = 'Y'; // UAU
+		letterArr[0][2][1] = 'Y'; // UAC
+		letterArr[0][2][2] = 'X'; // UAA
+		letterArr[0][2][3] = 'X'; // UAG
 
-		letterTable[0][3][0] = 'C'; // UGU
-		letterTable[0][3][1] = 'C'; // UGC
-		letterTable[0][3][2] = 'X'; // UGA
-		letterTable[0][3][3] = 'W'; // UGG
-
-		// ********************************
-
-		letterTable[1][0][0] = 'L'; // CUU
-		letterTable[1][0][1] = 'L'; // CUC
-		letterTable[1][0][2] = 'L'; // CUA
-		letterTable[1][0][3] = 'L'; // CUG
-
-		letterTable[1][1][0] = 'P'; // CCU
-		letterTable[1][1][1] = 'P'; // CCC
-		letterTable[1][1][2] = 'P'; // CCA
-		letterTable[1][1][3] = 'P'; // CCG
-
-		letterTable[1][2][0] = 'H'; // CAU
-		letterTable[1][2][1] = 'H'; // CAC
-		letterTable[1][2][2] = 'Q'; // CAA
-		letterTable[1][2][3] = 'Q'; // CAG
-
-		letterTable[1][3][0] = 'R'; // CGU
-		letterTable[1][3][1] = 'R'; // CGC
-		letterTable[1][3][2] = 'R'; // CGA
-		letterTable[1][3][3] = 'R'; // CGG
+		letterArr[0][3][0] = 'C'; // UGU
+		letterArr[0][3][1] = 'C'; // UGC
+		letterArr[0][3][2] = 'X'; // UGA
+		letterArr[0][3][3] = 'W'; // UGG
 
 		// ********************************
 
-		letterTable[2][0][0] = 'I'; // AUU
-		letterTable[2][0][1] = 'I'; // AUC
-		letterTable[2][0][2] = 'I'; // AUA
-		letterTable[2][0][3] = 'M'; // AUG
+		letterArr[1][0][0] = 'L'; // CUU
+		letterArr[1][0][1] = 'L'; // CUC
+		letterArr[1][0][2] = 'L'; // CUA
+		letterArr[1][0][3] = 'L'; // CUG
 
-		letterTable[2][1][0] = 'T'; // ACU
-		letterTable[2][1][1] = 'T'; // ACC
-		letterTable[2][1][2] = 'T'; // ACA
-		letterTable[2][1][3] = 'T'; // ACG
+		letterArr[1][1][0] = 'P'; // CCU
+		letterArr[1][1][1] = 'P'; // CCC
+		letterArr[1][1][2] = 'P'; // CCA
+		letterArr[1][1][3] = 'P'; // CCG
 
-		letterTable[2][2][0] = 'N'; // AAU
-		letterTable[2][2][1] = 'N'; // AAC
-		letterTable[2][2][2] = 'K'; // AAA
-		letterTable[2][2][3] = 'K'; // AAG
+		letterArr[1][2][0] = 'H'; // CAU
+		letterArr[1][2][1] = 'H'; // CAC
+		letterArr[1][2][2] = 'Q'; // CAA
+		letterArr[1][2][3] = 'Q'; // CAG
 
-		letterTable[2][3][0] = 'S'; // AGU
-		letterTable[2][3][1] = 'S'; // AGC
-		letterTable[2][3][2] = 'R'; // AGA
-		letterTable[2][3][3] = 'R'; // AGG
+		letterArr[1][3][0] = 'R'; // CGU
+		letterArr[1][3][1] = 'R'; // CGC
+		letterArr[1][3][2] = 'R'; // CGA
+		letterArr[1][3][3] = 'R'; // CGG
 
 		// ********************************
 
-		letterTable[3][0][0] = 'V'; // GUU
-		letterTable[3][0][1] = 'V'; // GUC
-		letterTable[3][0][2] = 'V'; // GUA
-		letterTable[3][0][3] = 'V'; // GUG
+		letterArr[2][0][0] = 'I'; // AUU
+		letterArr[2][0][1] = 'I'; // AUC
+		letterArr[2][0][2] = 'I'; // AUA
+		letterArr[2][0][3] = 'M'; // AUG
 
-		letterTable[3][1][0] = 'A'; // GCU
-		letterTable[3][1][1] = 'A'; // GCC
-		letterTable[3][1][2] = 'A'; // GCA
-		letterTable[3][1][3] = 'A'; // GCG
+		letterArr[2][1][0] = 'T'; // ACU
+		letterArr[2][1][1] = 'T'; // ACC
+		letterArr[2][1][2] = 'T'; // ACA
+		letterArr[2][1][3] = 'T'; // ACG
 
-		letterTable[3][2][0] = 'D'; // GAU
-		letterTable[3][2][1] = 'D'; // GAC
-		letterTable[3][2][2] = 'E'; // GAA
-		letterTable[3][2][3] = 'E'; // GAG
+		letterArr[2][2][0] = 'N'; // AAU
+		letterArr[2][2][1] = 'N'; // AAC
+		letterArr[2][2][2] = 'K'; // AAA
+		letterArr[2][2][3] = 'K'; // AAG
 
-		letterTable[3][3][0] = 'G'; // GGU
-		letterTable[3][3][1] = 'G'; // GGC
-		letterTable[3][3][2] = 'G'; // GGA
-		letterTable[3][3][3] = 'G'; // GGG
+		letterArr[2][3][0] = 'S'; // AGU
+		letterArr[2][3][1] = 'S'; // AGC
+		letterArr[2][3][2] = 'R'; // AGA
+		letterArr[2][3][3] = 'R'; // AGG
+
+		// ********************************
+
+		letterArr[3][0][0] = 'V'; // GUU
+		letterArr[3][0][1] = 'V'; // GUC
+		letterArr[3][0][2] = 'V'; // GUA
+		letterArr[3][0][3] = 'V'; // GUG
+
+		letterArr[3][1][0] = 'A'; // GCU
+		letterArr[3][1][1] = 'A'; // GCC
+		letterArr[3][1][2] = 'A'; // GCA
+		letterArr[3][1][3] = 'A'; // GCG
+
+		letterArr[3][2][0] = 'D'; // GAU
+		letterArr[3][2][1] = 'D'; // GAC
+		letterArr[3][2][2] = 'E'; // GAA
+		letterArr[3][2][3] = 'E'; // GAG
+
+		letterArr[3][3][0] = 'G'; // GGU
+		letterArr[3][3][1] = 'G'; // GGC
+		letterArr[3][3][2] = 'G'; // GGA
+		letterArr[3][3][3] = 'G'; // GGG
 
 	}
 
-	private void setCodonArr() {
+	private void setCodonTable() {
 
-		codonTable.put("A", new String[] { "GCU", "GCC", "GCA", "GCG" });
-		codonTable.put("C", new String[] { "UGU", "UGC" });
-		codonTable.put("D", new String[] { "GAU", "GAC" });
-		codonTable.put("E", new String[] { "GAA", "GAG" });
-		codonTable.put("F", new String[] { "UUU", "UUU" });
-		codonTable.put("G", new String[] { "GGU", "GGC", "GGA", "GGG" });
-		codonTable.put("H", new String[] { "CAU", "CAC" });
-		codonTable.put("I", new String[] { "AUU", "AUC", "AUA" });
-		codonTable.put("K", new String[] { "AAA", "AAG" });
-		codonTable.put("L", new String[] { "UUA", "UUG", "CUU", "CUC", "CUA", "CUG" });
-		codonTable.put("M", new String[] { "AUG" });
-		codonTable.put("N", new String[] { "AAU", "AAC" });
-		codonTable.put("P", new String[] { "CCU", "CCC", "CCA", "CCG" });
-		codonTable.put("Q", new String[] { "CAA", "CAG" });
-		codonTable.put("R", new String[] { "CGU", "CGC", "CGA", "CGG", "AGA", "AGG" });
-		codonTable.put("S", new String[] { "UCU", "UCC", "UCA", "UGC", "AGU", "AGC" });
-		codonTable.put("T", new String[] { "ACU", "ACC", "ACA", "ACG" });
-		codonTable.put("V", new String[] { "GUU", "GUC", "GUA", "GUG" });
-		codonTable.put("W", new String[] { "UGG" });
-		codonTable.put("X", new String[] { "UAA", "UAG", "UGA" });// Stop
-		codonTable.put("Y", new String[] { "UAU", "UAC" });
+		codonTable.put('A', new String[] { "GCU", "GCC", "GCA", "GCG" });
+		codonTable.put('C', new String[] { "UGU", "UGC" });
+		codonTable.put('D', new String[] { "GAU", "GAC" });
+		codonTable.put('E', new String[] { "GAA", "GAG" });
+		codonTable.put('F', new String[] { "UUU", "UUU" });
+		codonTable.put('G', new String[] { "GGU", "GGC", "GGA", "GGG" });
+		codonTable.put('H', new String[] { "CAU", "CAC" });
+		codonTable.put('I', new String[] { "AUU", "AUC", "AUA" });
+		codonTable.put('K', new String[] { "AAA", "AAG" });
+		codonTable.put('L', new String[] { "UUA", "UUG", "CUU", "CUC", "CUA", "CUG" });
+		codonTable.put('M', new String[] { "AUG" });
+		codonTable.put('N', new String[] { "AAU", "AAC" });
+		codonTable.put('P', new String[] { "CCU", "CCC", "CCA", "CCG" });
+		codonTable.put('Q', new String[] { "CAA", "CAG" });
+		codonTable.put('R', new String[] { "CGU", "CGC", "CGA", "CGG", "AGA", "AGG" });
+		codonTable.put('S', new String[] { "UCU", "UCC", "UCA", "UGC", "AGU", "AGC" });
+		codonTable.put('T', new String[] { "ACU", "ACC", "ACA", "ACG" });
+		codonTable.put('V', new String[] { "GUU", "GUC", "GUA", "GUG" });
+		codonTable.put('W', new String[] { "UGG" });
+		codonTable.put('X', new String[] { "UAA", "UAG", "UGA" });// Stop
+		codonTable.put('Y', new String[] { "UAU", "UAC" });
+	}
+
+	private void setShortTable() {
+		shortTable.put('A', "Ala");
+		shortTable.put('C', "Cys");
+		shortTable.put('D', "Asp");
+		shortTable.put('E', "Glu");
+		shortTable.put('F', "Phe");
+		shortTable.put('G', "Gly");
+		shortTable.put('H', "His");
+		shortTable.put('I', "Ile");
+		shortTable.put('K', "Lys");
+		shortTable.put('L', "Leu");
+		shortTable.put('M', "Met");
+		shortTable.put('N', "Asn");
+		shortTable.put('P', "Pro");
+		shortTable.put('Q', "Gln");
+		shortTable.put('R', "Arg");
+		shortTable.put('S', "Ser");
+		shortTable.put('T', "Thr");
+		shortTable.put('V', "Val");
+		shortTable.put('W', "Trp");
+		shortTable.put('X', "Stop");
+		shortTable.put('Y', "Tyr");
 	}
 
 }
